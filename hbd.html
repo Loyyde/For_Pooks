@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>IT'S YA BIRTHDAY MA BOI !! 🔥</title>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #22223b 0%, #4a4e69 100%);
+            color: #f2e9e4;
+            font-family: 'VT323', monospace;
+            text-align: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .card {
+            background: #22223b;
+            border: 3px solid #9a8c98;
+            border-radius: 16px;
+            width: 350px;
+            margin: 40px auto;
+            padding: 24px;
+            box-shadow: 0 8px 32px #0008;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .card.open {
+            background: #f2e9e4;
+            color: #22223b;
+            transform: scale(1.05);
+        }
+        .cake {
+            margin: 32px auto;
+            width: 180px;
+            height: 220px;
+            position: relative;
+        }
+        .cake-part {
+            opacity: 0;
+            transform: translateY(40px) scale(0.9);
+            transition: opacity 0.5s, transform 0.5s;
+            position: absolute;
+            left: 0;
+            right: 0;
+            margin: auto;
+        }
+        .cake-part.visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+        .cake-base {
+            width: 180px;
+            height: 60px;
+            background: #f7cad0;
+            border-radius: 0 0 90px 90px/0 0 60px 60px;
+            bottom: 0;
+            z-index: 1;
+        }
+        .cake-layer1 {
+            width: 170px;
+            height: 40px;
+            background: #fff0f3;
+            border-radius: 90px 90px 40px 40px/60px 60px 40px 40px;
+            bottom: 60px;
+            z-index: 2;
+        }
+        .cake-layer2 {
+            width: 150px;
+            height: 30px;
+            background: #f7cad0;
+            border-radius: 80px 80px 30px 30px/50px 50px 30px 30px;
+            bottom: 100px;
+            z-index: 3;
+        }
+        .cake-icing {
+            width: 160px;
+            height: 18px;
+            background: #fff;
+            border-radius: 80px 80px 20px 20px/20px 20px 20px 20px;
+            bottom: 90px;
+            z-index: 4;
+            box-shadow: 0 4px 8px #f7cad0 inset;
+        }
+        .candle {
+            width: 10px;
+            height: 36px;
+            background: #22223b;
+            border-radius: 4px;
+            position: absolute;
+            bottom: 145px;
+            z-index: 7;
+        }
+        .candle-left   { left: 40px; }
+        .candle-center { left: 80px; }
+        .candle-right  { left: 180px; }
+        .flame {
+            width: 12px;
+            height: 18px;
+            background: radial-gradient(ellipse at center, #ffe066 60%, #ffb700 100%);
+            border-radius: 50% 50% 50% 50%/60% 60% 40% 40%;
+            position: absolute;
+            left: -1px;
+            top: -18px;
+            animation: flicker 0.5s infinite alternate;
+        }
+        @keyframes flicker {
+            0% { transform: scaleY(1) translateY(0); opacity: 1; }
+            100% { transform: scaleY(1.2) translateY(-2px); opacity: 0.8; }
+        }
+        .music-controls {
+            margin: 24px;
+        }
+        .omori-img {
+            width: 120px;
+            border-radius: 12px;
+            margin: 16px;
+            border: 2px solid #9a8c98;
+        }
+        .omori-music-btn {
+            background: #f2e9e4;
+            border: 2px solid #9a8c98;
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            cursor: pointer;
+            box-shadow: 0 4px 16px #0004;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s, border 0.2s;
+            outline: none;
+            margin: 0 auto;
+        }
+        .omori-music-btn:hover {
+            background: #ffe066;
+            border-color: #22223b;
+        }
+        #music-icon.play {
+            display: block;
+            width: 0;
+            height: 0;
+            border-top: 14px solid transparent;
+            border-bottom: 14px solid transparent;
+            border-left: 20px solid #22223b;
+            margin-left: 6px;
+        }
+        #music-icon.pause {
+            display: flex;
+            width: 20px;
+            height: 28px;
+            align-items: center;
+            justify-content: center;
+        }
+        #music-icon.pause::before, #music-icon.pause::after {
+            content: '';
+            display: block;
+            width: 6px;
+            height: 28px;
+            background: #22223b;
+            border-radius: 2px;
+            margin: 0 2px;
+        }
+    </style>
+</head>
+<body>
+    <h1>HAPPY BIRTHDAY MA BOII !!</h1>
+    <img src="Omori.jpg" class="omori-img">
+    <div class="music-controls">
+        <audio id="bg-music" src="Cats.mp3" loop></audio>
+        <button id="omori-music-btn" class="omori-music-btn" onclick="toggleMusic()">
+            <span id="music-icon" class="play"></span>
+        </button>
+    </div>
+    <div id="blow-msg" style="font-size:1.3em; margin-bottom: 8px; color:#ffe066; text-shadow: 1px 1px 4px #22223b;">
+        BLOW DA CANDLE SKIBIDI (and make a wish) hehet
+    </div>
+    <div class="cake" onclick="blowCandles()">
+        <div class="cake-part cake-base"></div>
+        <div class="cake-part cake-layer1"></div>
+        <div class="cake-part cake-layer2"></div>
+        <div class="cake-part cake-icing"></div>
+        <div class="cake-part candle"><div class="flame"></div></div>
+    </div>
+    <div class="card" id="card" onclick="openCard()">
+        <h2>Click mwe!</h2>
+        <div id="card-message" style="display:none; position: relative;">
+            <!-- Corners -->
+            <img src="basil_for_you.png" style="position:absolute; top:-20px; left:-20px; width:40px; transform: rotate(-20deg);">
+            <img src="aubrey_headbutt.png" style="position:absolute; top:-20px; right:-20px; width:40px; transform: rotate(15deg);">
+            <img src="mari_mischevious.png" style="position:absolute; bottom:-20px; left:-20px; width:40px; transform: rotate(10deg);">
+            <img src="kel_hero_bros.png" style="position:absolute; bottom:-20px; right:-20px; width:40px; transform: rotate(-10deg);">
+            <!-- Sides -->
+            <img src="mari_omori_cuddle.png" style="position:absolute; top:50%; left:-30px; width:40px; transform: translateY(-50%) rotate(-12deg);">
+            <img src="kel_happy.png" style="position:absolute; top:50%; right:-30px; width:36px; transform: translateY(-50%) rotate(12deg);">
+            <!-- Random fun spots -->
+            <img src="basil_cheese.png" style="position:absolute; bottom:40px; right:50px; width:36px; transform: rotate(-8deg);">
+            <p style="position:relative; z-index:1;">
+                Dear Pooks,<br>
+                my gift might probably not be the best, but as you know, your dear sara is way too freaking broke (and suck at choosing gifts) to get you anything better.<br>
+                so there goes my birthday gift for you, this code hehet !! i hope you appreciate it c: (if u'd like anything specifique else lmk and i'll buy u that with my savings hehet)<br>
+                i hope that your day will go amazingly well and that you'll have lots of fun !! enjoy it to your fullest and ay be joy dude ! take care, stay safe AND GOOD LUCK WITH LIFE HEH >:3<br>
+                i'm super dupper glad to have u as a friend (thanks for being my looser's annoying ass' friend and not minding it LFMAO)<br>
+                u're so kewl twinkatron !! <br>
+                <span style="font-size:2em;">lob u my skibidi gang 🔥</span>
+            </p>
+        </div>
+    </div>
+    <script>
+        function toggleMusic() {
+            const music = document.getElementById('bg-music');
+            const icon = document.getElementById('music-icon');
+            if (music.paused) {
+                music.play();
+                icon.classList.remove('play');
+                icon.classList.add('pause');
+            } else {
+                music.pause();
+                icon.classList.remove('pause');
+                icon.classList.add('play');
+            }
+        }
+        // Set initial icon state on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            const music = document.getElementById('bg-music');
+            const icon = document.getElementById('music-icon');
+            icon.className = music.paused ? 'play' : 'pause';
+            // Animate cake parts one by one on load
+            const parts = document.querySelectorAll('.cake-part');
+            parts.forEach((part, i) => {
+                setTimeout(() => {
+                    part.classList.add('visible');
+                }, i * 350);
+            });
+        });
+
+        function blowCandles() {
+            document.querySelectorAll('.flame').forEach(f => f.style.display = 'none');
+            setTimeout(() => {
+                document.querySelectorAll('.flame').forEach(f => f.style.display = '');
+            }, 2000); // Candles relight after 2 seconds
+        }
+        function openCard() {
+            const card = document.getElementById('card');
+            card.classList.toggle('open');
+            const msg = document.getElementById('card-message');
+            msg.style.display = msg.style.display === 'none' ? 'block' : 'none';
+        }
+    </script>
+</body>
+</html>
